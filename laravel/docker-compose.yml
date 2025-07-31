@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  app:
+    image: php:8.2-fpm
+    # ...
+    depends_on:
+      - mysql
+    networks:
+      - laravel
+
+  mysql:
+    image: mysql:8
+    container_name: peminjaman_db
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    networks:
+      - laravel
+
+  nginx:
+    # ...
+    depends_on:
+      - app
+    networks:
+      - laravel
+
+networks:
+  laravel:
+    driver: bridge
